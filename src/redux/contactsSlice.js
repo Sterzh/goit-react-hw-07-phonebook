@@ -44,7 +44,10 @@ const contactsSlice = createSlice({
       .addCase(deleteContactThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        state.items.splice(action.payload, 1);
+        state.items.splice(
+          state.items.findIndex(e => e.id === action.payload),
+          1
+        );
       })
       .addCase(deleteContactThunk.rejected, (state, action) => {
         state.isLoading = false;

@@ -7,14 +7,20 @@ import { useState } from 'react';
 export default function ContactForm() {
   const dispatch = useDispatch();
   const contacts = useSelector(state => state.contacts.items);
-  // const [id, setId] = useState('');
+  const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
   const handleChange = event => {
     const { name, value } = event.target;
     name === 'name' ? setName(value) : setNumber(value);
-    // setId(nanoid());
+    console.log(contacts);
+
+    const maxId = Math.max(...contacts.map(e => e.id));
+
+    console.log(maxId);
+
+    setId(maxId + 1);
   };
 
   const handleSubmit = e => {
@@ -26,7 +32,7 @@ export default function ContactForm() {
 
       checkName === undefined
         ? // dispatch(addContactThunk({ id: id, name: name, number: number }))
-          dispatch(addContactThunk({ name: name, number: number }))
+          dispatch(addContactThunk({ name: name, number: number, id: id }))
         : alert([name] + ': is already in contacts');
     }
 

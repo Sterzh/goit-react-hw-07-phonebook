@@ -1,6 +1,4 @@
 import { useDispatch, useSelector } from 'react-redux';
-// import { deleteContact } from '../../redux/contactsSlice';
-// import { deleteFilterContact } from '../../redux/filterSlice';
 import { fetchContactsThunk } from '../../redux/operations';
 import { useEffect } from 'react';
 
@@ -10,33 +8,40 @@ import css from './ContactList.module.css';
 const ContactList = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(state => state.contacts.items);
+
   const filter = useSelector(state => state.filter);
-  const renderList = filter.length === 0 ? contacts : filter;
+  const renderList = filter === '' ? contacts : filter;
 
   useEffect(() => {
-    console.log('ghjcgjcghj');
     dispatch(fetchContactsThunk());
   }, [dispatch]);
 
   return (
-    <ul className={css.contactList}>
-      {renderList.map(e => {
-        return (
-          <li className={css.contactListItem} key={e.id}>
-            {e.name}: {e.number}
-            <button
-              type="button"
-              onClick={() => {
-                dispatch(deleteContactThunk(e.id));
-                // dispatch(deleteFilterContact(e.id));
-              }}
-            >
-              Delete
-            </button>
-          </li>
-        );
-      })}
-    </ul>
+    <>
+      {filter !== '' && filter.length === 0 ? (
+        <div className={css.contactListFilterError}>
+          Oops! Nothing found, change the search value.
+        </div>
+      ) : (
+        <ul className={css.contactList}>
+          {renderList.map(e => {
+            return (
+              <li className={css.contactListItem} key={e.id}>
+                {e.name}: {e.number}
+                <button
+                  type="button"
+                  onClick={() => {
+                    dispatch(deleteContactThunk(e.id));
+                  }}
+                >
+                  Delete
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </>
   );
 };
 
