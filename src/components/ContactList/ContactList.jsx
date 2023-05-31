@@ -18,7 +18,10 @@ const ContactList = () => {
 
   return (
     <>
-      {filter !== '' && filter.length === 0 ? (
+      {console.log(renderList.length)}
+      {console.log(filter)}
+      {console.log(filter.length)}
+      {renderList.length === 0 && filter !== [] ? (
         <div className={css.contactListFilterError}>
           Oops! Nothing found, change the search value.
         </div>

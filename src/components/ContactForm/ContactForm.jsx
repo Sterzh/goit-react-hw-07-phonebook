@@ -14,11 +14,8 @@ export default function ContactForm() {
   const handleChange = event => {
     const { name, value } = event.target;
     name === 'name' ? setName(value) : setNumber(value);
-    console.log(contacts);
 
     const maxId = Math.max(...contacts.map(e => e.id));
-
-    console.log(maxId);
 
     setId(maxId + 1);
   };

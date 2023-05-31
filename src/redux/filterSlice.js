@@ -9,10 +9,6 @@ const filterSlice = createSlice({
     filterStorageContacts: (state, action) => {
       return action.payload;
     },
-    deleteFilterContact: (state, action) => {
-      const index = state.findIndex(e => e.id === action.payload);
-      state.splice(index, 1);
-    },
   },
 });
 
