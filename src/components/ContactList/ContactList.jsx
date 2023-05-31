@@ -1,15 +1,22 @@
+import { Filter } from '../Filter/Filter';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchContactsThunk } from '../../redux/operations';
 import { useEffect } from 'react';
-
+import {
+  selectContacts,
+  selectError,
+  selectIsLoading,
+  selectStatusFilter,
+} from 'redux/selectors';
 import { deleteContactThunk } from '../../redux/operations';
 import css from './ContactList.module.css';
 
 const ContactList = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts.items);
-
-  const filter = useSelector(state => state.filter);
+  const contacts = useSelector(selectContacts);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
+  const filter = useSelector(selectStatusFilter);
   const renderList = filter === '' ? contacts : filter;
 
   useEffect(() => {
@@ -17,11 +24,13 @@ const ContactList = () => {
   }, [dispatch]);
 
   return (
-    <>
-      {console.log(renderList.length)}
-      {console.log(filter)}
-      {console.log(filter.length)}
-      {renderList.length === 0 && filter !== [] ? (
+    <section>
+      <h2 className={css.contactListTitle}>Contacts</h2>
+      <Filter />
+      {isLoading && !error && (
+        <b className={css.contactListLoading}>Request in progress...</b>
+      )}
+      {contacts.length !== 0 && filter.length === 0 ? (
         <div className={css.contactListFilterError}>
           Oops! Nothing found, change the search value.
         </div>
@@ -44,7 +53,7 @@ const ContactList = () => {
           })}
         </ul>
       )}
-    </>
+    </section>
   );
 };
 

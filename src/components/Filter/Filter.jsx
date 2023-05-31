@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { filterStorageContacts } from '../../redux/filterSlice';
+import { selectContacts } from 'redux/selectors';
+import css from './Filter.module.css';
 
-export default function Filter() {
+export function Filter() {
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts.items);
+  const contacts = useSelector(selectContacts);
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
@@ -26,6 +28,15 @@ export default function Filter() {
   };
 
   return (
-    <input name="filter" type="text" onChange={handleChange} value={filter} />
+    <>
+      <p className={css.filterText}>Find contacts by name</p>
+      <input
+        name="filter"
+        type="text"
+        onChange={handleChange}
+        value={filter}
+        className={css.filterInput}
+      />
+    </>
   );
 }

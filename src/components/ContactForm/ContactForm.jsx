@@ -1,4 +1,3 @@
-// import { nanoid } from 'nanoid';
 import css from './ContactForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContactThunk } from '../../redux/operations';
@@ -28,8 +27,7 @@ export default function ContactForm() {
       });
 
       checkName === undefined
-        ? // dispatch(addContactThunk({ id: id, name: name, number: number }))
-          dispatch(addContactThunk({ name: name, number: number, id: id }))
+        ? dispatch(addContactThunk({ name: name, number: number, id: id }))
         : alert([name] + ': is already in contacts');
     }
 
@@ -43,7 +41,7 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className={css.contactForm}>
-      <label htmlFor="name">
+      <label htmlFor="name" className={css.contactFormLabel}>
         Name
         <input
           id="name"
@@ -58,7 +56,7 @@ export default function ContactForm() {
           autoComplete="true"
         />
       </label>
-      <label htmlFor="number">
+      <label htmlFor="number" className={css.contactFormLabel}>
         Number
         <input
           id="number"

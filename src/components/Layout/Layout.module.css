@@ -1,0 +1,27 @@
+.Header {
+  margin-left: auto;
+  margin-right: auto;
+  margin: 0;
+  border-bottom: solid 1px #000;
+}
+
+.HeaderTitle {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  color: #ffff;
+  background-color: #2d598b;
+  padding: 15px 0;
+}
+
+.Nav {
+  padding-left: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.Link {
+  text-decoration: none;
+  font-weight: 700;
+  color: #000000;
+}
