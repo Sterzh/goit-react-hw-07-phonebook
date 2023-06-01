@@ -17,7 +17,12 @@ const ContactList = () => {
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
   const filter = useSelector(selectStatusFilter);
-  const renderList = filter === '' ? contacts : filter;
+  const renderList =
+    filter === ''
+      ? contacts
+      : contacts.filter(contact => {
+          return contact.name.toLowerCase().includes(filter);
+        });
 
   useEffect(() => {
     dispatch(fetchContactsThunk());
@@ -30,7 +35,7 @@ const ContactList = () => {
       {isLoading && !error && (
         <b className={css.contactListLoading}>Request in progress...</b>
       )}
-      {contacts.length !== 0 && filter.length === 0 ? (
+      {renderList.length === 0 && filter !== '' ? (
         <div className={css.contactListFilterError}>
           Oops! Nothing found, change the search value.
         </div>
