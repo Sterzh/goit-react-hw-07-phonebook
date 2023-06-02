@@ -17,12 +17,10 @@ const ContactList = () => {
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
   const filter = useSelector(selectStatusFilter);
-  const renderList =
-    filter === ''
-      ? contacts
-      : contacts.filter(contact => {
-          return contact.name.toLowerCase().includes(filter);
-        });
+  const contactTheFilter = contacts.filter(contact => {
+    return contact.name.toLowerCase().includes(filter);
+  });
+  const renderList = filter === '' ? contacts : contactTheFilter;
 
   useEffect(() => {
     dispatch(fetchContactsThunk());
